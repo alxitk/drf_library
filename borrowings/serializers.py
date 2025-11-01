@@ -4,6 +4,7 @@ from django.utils import timezone
 from books.models import Book
 from books.serializers import BookSerializer
 from borrowings.models import Borrowing
+from notifications.utils import send_telegram_message
 
 
 class BorrowingListSerializer(serializers.ModelSerializer):
@@ -42,5 +43,7 @@ class CreateBorrowingSerializer(serializers.ModelSerializer):
             borrow_date=timezone.now().date(),
             expected_return_date=validated_data["expected_return_date"],
         )
+        message = f"New borrowing created:\nBook: {borrowing.book.title}\nUser: {borrowing.user.email}"
+        send_telegram_message(message)
 
         return borrowing
