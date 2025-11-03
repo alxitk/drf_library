@@ -12,9 +12,7 @@ def check_overdue_borrowings():
     )
 
     if not overdue_borrowings.exists():
-        send_telegram_message(
-            "No borrowings overdue today"
-        )
+        send_telegram_message("No borrowings overdue today")
         return
 
     for b in overdue_borrowings:

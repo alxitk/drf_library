@@ -9,6 +9,7 @@ from borrowings.models import Borrowing
 
 BORROWING_URL = reverse("borrowings:borrowings-list")
 
+
 class UnauthenticatedBorrowingApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
@@ -39,16 +40,16 @@ class AuthenticatedBorrowingApiTests(TestCase):
 
     def test_user_sees_only_own_borrowings(self):
         Borrowing.objects.create(
-            borrow_date = "2025-10-01",
-            expected_return_date = "2025-10-10",
-            book = self.book,
-            user = self.user1,
+            borrow_date="2025-10-01",
+            expected_return_date="2025-10-10",
+            book=self.book,
+            user=self.user1,
         )
         Borrowing.objects.create(
-            borrow_date = "2025-10-01",
-            expected_return_date = "2025-10-10",
-            book = self.book,
-            user = self.user2,
+            borrow_date="2025-10-01",
+            expected_return_date="2025-10-10",
+            book=self.book,
+            user=self.user2,
         )
         self.client.force_authenticate(user=self.user1)
         response = self.client.get(BORROWING_URL)
@@ -71,15 +72,17 @@ class ReturnBorrowingApiTests(TestCase):
             daily_fee=10.10,
         )
         self.borrowing = Borrowing.objects.create(
-            user = self.user1,
-            book = self.book,
-            borrow_date = "2025-10-01",
-            expected_return_date = "2025-10-10",
+            user=self.user1,
+            book=self.book,
+            borrow_date="2025-10-01",
+            expected_return_date="2025-10-10",
         )
         self.client.force_authenticate(user=self.user1)
 
     def test_return_borrowing_success(self):
-        url = reverse("borrowings:borrowings-return-borrowing", args=[self.borrowing.id])
+        url = reverse(
+            "borrowings:borrowings-return-borrowing", args=[self.borrowing.id]
+        )
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.borrowing.refresh_from_db()
@@ -88,9 +91,9 @@ class ReturnBorrowingApiTests(TestCase):
         self.assertEqual(self.book.inventory, 2)
 
     def test_cannot_return_twice(self):
-        url = reverse("borrowings:borrowings-return-borrowing", args=[self.borrowing.id])
+        url = reverse(
+            "borrowings:borrowings-return-borrowing", args=[self.borrowing.id]
+        )
         self.client.post(url)
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-

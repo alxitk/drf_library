@@ -6,7 +6,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from borrowings.models import Borrowing
-from borrowings.serializers import BorrowingListSerializer, BorrowingSerializer, CreateBorrowingSerializer
+from borrowings.serializers import (
+    BorrowingListSerializer,
+    BorrowingSerializer,
+    CreateBorrowingSerializer,
+)
 
 
 class BorrowingsView(ModelViewSet):
@@ -45,7 +49,7 @@ class BorrowingsView(ModelViewSet):
         borrowing = self.get_object()
         if borrowing.actual_return_date:
             return Response(
-                {"error" : "This borrowing has already been returned."},
+                {"error": "This borrowing has already been returned."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -56,6 +60,6 @@ class BorrowingsView(ModelViewSet):
         borrowing.save()
 
         return Response(
-            {"message" : "Book returned successfully."},
+            {"message": "Book returned successfully."},
             status=status.HTTP_200_OK,
         )

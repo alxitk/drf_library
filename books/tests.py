@@ -8,15 +8,12 @@ from users.models import User
 
 BOOKS_URL = reverse("books:book-list")
 
+
 class BooksApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.book = Book.objects.create(
-            title="Book 1",
-            author="<NAME>",
-            cover="Hard",
-            inventory=10,
-            daily_fee=5.0
+            title="Book 1", author="<NAME>", cover="Hard", inventory=10, daily_fee=5.0
         )
         self.user = User.objects.create_user(
             email="<EMAIL>",
@@ -29,7 +26,7 @@ class BooksApiTests(TestCase):
             "author": "test author",
             "cover": "Hard",
             "inventory": 10,
-            "daily_fee": 5.0
+            "daily_fee": 5.0,
         }
         self.client.force_authenticate(user=self.user)
 
@@ -47,8 +44,6 @@ class BooksApiTests(TestCase):
         self.assertEqual(response.data[0]["author"], self.book.author)
         self.assertEqual(response.data[0]["cover"], self.book.cover)
         self.assertEqual(response.data[0]["inventory"], self.book.inventory)
-        self.assertEqual(float(response.data[0]["daily_fee"]), float(self.book.daily_fee))
-
-
-
-
+        self.assertEqual(
+            float(response.data[0]["daily_fee"]), float(self.book.daily_fee)
+        )

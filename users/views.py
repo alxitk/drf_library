@@ -8,23 +8,23 @@ from users.serializers import UserSerializer, AuthTokenSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
-   queryset = User.objects.all()
-   serializer_class = UserSerializer
-   permission_classes = (IsAdminUser,)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (IsAdminUser,)
 
 
 class CreateUserView(generics.CreateAPIView):
-   serializer_class = UserSerializer
+    serializer_class = UserSerializer
 
 
 class CreateTokenView(ObtainAuthToken):
-   renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
-   serializer_class = AuthTokenSerializer
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+    serializer_class = AuthTokenSerializer
 
 
 class ManageUserView(generics.RetrieveUpdateAPIView):
-   serializer_class = UserSerializer
-   permission_classes = (IsAuthenticated,)
+    serializer_class = UserSerializer
+    permission_classes = (IsAuthenticated,)
 
-   def get_object(self):
-      return self.request.user
+    def get_object(self):
+        return self.request.user

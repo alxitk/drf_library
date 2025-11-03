@@ -26,7 +26,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/books/", include(("books.urls", "books"), namespace="books")),
     path("api/users/", include(("users.urls", "users"), namespace="users")),
-    path("api/borrowings/", include(("borrowings.urls", "borrowings"), namespace="borrowings")),
+    path(
+        "api/borrowings/",
+        include(("borrowings.urls", "borrowings"), namespace="borrowings"),
+    ),
     path("api/doc/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/doc/swagger/",
@@ -34,5 +37,3 @@ urlpatterns = [
         name="swagger-ui",
     ),
 ]
-
-
