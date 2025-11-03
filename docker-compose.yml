@@ -28,6 +28,17 @@ services:
     volumes:
       - my_db:$PGDATA
 
+  qcluster:
+    build:
+      context: .
+    command: python manage.py qcluster
+    env_file:
+      - .env
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+
 volumes:
   my_db:
   my_media:
