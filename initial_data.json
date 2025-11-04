@@ -1,0 +1,77 @@
+[
+  {
+    "model": "books.book",
+    "pk": 1,
+    "fields": {
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "cover": "Hard",
+      "inventory": 5,
+      "daily_fee": "1.50"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 2,
+    "fields": {
+      "title": "1984",
+      "author": "George Orwell",
+      "cover": "Soft",
+      "inventory": 3,
+      "daily_fee": "2.00"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 3,
+    "fields": {
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "cover": "Hard",
+      "inventory": 4,
+      "daily_fee": "1.80"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "email": "admin@admin.com",
+      "password": "pbkdf2_sha256$260000$6IuHGqKxZoGzG2nRibOedT$2WzB9QH8C5cHqF4YNQ/cVj2B+/F8xH3RgnScU3TVbkQ=",
+      "is_staff": true,
+      "is_superuser": true
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "email": "user1@example.com",
+      "password": "pbkdf2_sha256$260000$gRzGnGZt3Yb2jKZMX6C9kL$7mjJkS1xn1ZlB1rX3Z3u9mPb+0a0LP6TqsdnMXlUx5E=",
+      "is_staff": false,
+      "is_superuser": false
+    }
+  },
+  {
+    "model": "borrowings.borrowing",
+    "pk": 1,
+    "fields": {
+      "borrow_date": "2025-11-01",
+      "expected_return_date": "2025-11-10",
+      "actual_return_date": null,
+      "book": 1,
+      "user": 2
+    }
+  },
+  {
+    "model": "borrowings.borrowing",
+    "pk": 2,
+    "fields": {
+      "borrow_date": "2025-10-25",
+      "expected_return_date": "2025-11-02",
+      "actual_return_date": "2025-11-01",
+      "book": 2,
+      "user": 2
+    }
+  }
+]
